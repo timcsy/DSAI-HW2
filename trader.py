@@ -431,7 +431,7 @@ if __name__ == "__main__":
             if (pred > prev_pred):
                 output_file.write('1\n')
             else:
-                output_file.write('0\n')
+                output_file.write('-1\n')
             
             df_train = df_train.append(row)
             prev_pred = pred
