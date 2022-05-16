@@ -423,15 +423,24 @@ if __name__ == "__main__":
 
     with open(args.output, "w") as output_file:
         prev_pred = 0
+        unit = 0
         for i, row in df_test.iterrows(): # read a row of testing data at one time
             if (i == len(df_test) - 1):
                 break
             # We will perform your action as the open price in the next day.
             pred = testing(df_train)
             if (pred > prev_pred):
-                output_file.write('1\n')
+                if (unit == 0):
+                    output_file.write('1\n')
+                    unit += 1
+                else:
+                    output_file.write('0\n')
             else:
-                output_file.write('-1\n')
+                if (unit == 1):
+                    output_file.write('-1\n')
+                    unit -= 1
+                else:
+                    output_file.write('0\n')
             
             df_train = df_train.append(row)
             prev_pred = pred
